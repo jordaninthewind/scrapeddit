@@ -2,6 +2,4 @@
 
 require './lib/scrapeddit'
 
-puts "Welcome to Scrapeddit."
-# binding.pry	
-Scrapeddit::CLI.new.run
+Scrapeddit::CLI.new
