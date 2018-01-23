@@ -1,11 +1,8 @@
-require "scrapeddit/version"
-
-class RedditCLIController
+class Scrapeddit::CLI
 
   def initialize
     puts "Get Ready to Scrape Some Gold!"
-
-    x = RedditScraper.new
+    x = Scrapeddit::Scraper.new
     @page = x.scrape
   end
 

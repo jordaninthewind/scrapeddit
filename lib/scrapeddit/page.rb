@@ -1,4 +1,5 @@
-class Page
+class Scrapeddit::Page
+
 attr_accessor :posts
 
 	def initialize
@@ -8,5 +9,5 @@ attr_accessor :posts
 	def add_post(post)
 		@posts << post
 	end
-	
+
 end

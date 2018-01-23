@@ -6,7 +6,7 @@ require "scrapeddit/version"
 Gem::Specification.new do |spec|
   spec.name          = "scrapeddit"
   spec.version       = Scrapeddit::VERSION
-  spec.authors       = "Jordan Kline"
+  spec.authors       = ["Jordan Kline"]
   spec.email         = "jordan.kline@gmail.com"
 
   spec.summary       = %q{A simple Reddit scraper}

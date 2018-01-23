@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require './lib/scrapeddit'
+
+puts "Welcome to Scrapeddit."
+# binding.pry	
+Scrapeddit::CLI.new.run
