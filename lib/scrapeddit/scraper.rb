@@ -1,11 +1,11 @@
 class Scrapeddit::Scraper
 
-attr_accessor :page, :doc, :subreddit
+attr_accessor :page, :doc
 
 	def initialize(subreddit = "")
 		@page = Scrapeddit::Page.new
 		@doc = Nokogiri::HTML(open("http://www.reddit.com/#{subreddit}"))
-		@subreddit = subreddit
+		# @page.subreddit = subreddit
 	end
 
 	def scrape

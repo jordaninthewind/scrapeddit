@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require './lib/scrapeddit'
+require './lib/environment'
 
 Scrapeddit::CLI.new

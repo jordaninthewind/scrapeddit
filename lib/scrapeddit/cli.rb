@@ -14,55 +14,59 @@ class Scrapeddit::CLI
   end
 
   def run
-    puts "What would you like to do? (list or exit)"
+    # binding.pry
+    puts "What would you like to do? (list or list long, change subreddit, or exit)"
     input = gets.chomp
     case input
       when "list"
+        list_short
+      when "list long"
         list_posts
+      when "change subreddit"
+        select_subreddit
       when "exit"
         puts "Have a great day!"
         exit
       else
-        open
+        run
     end
-    # run
   end
 
   def list_posts
     system('clear')
-    puts "Top 25 Reddit Posts\n\n"
+    puts "Top 25 Reddit Posts\n"
     
-    @page.posts.each.with_index do | post, num|
+    @page.posts.each.with_index do | post, num |
       puts "#{num + 1}. #{post.title}"
-      puts "	Votes: #{post.votes} Subreddit: #{post.subreddit}"
+      puts "	  Votes: #{post.votes} Subreddit: #{post.subreddit}"
+      puts "    URL: #{post.url}\n"
     end
     
-    puts "Type a Number to Open Link"
+    puts "Type a Number to Open Link or Press Enter"
     input = gets.strip
-    system('open #{@page.posts[input.to_i-1].url}')
+      if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
+        system("open #{@page.posts[input.to_i-1].url}")
+      else 
+        system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
+      end
+    run
+  end
+
+  def list_short
+    system('clear')
+    puts "Top 25 Reddit Posts\n"
+    
+    @page.posts.each.with_index do | post, num |
+      puts "#{num + 1}. #{post.title}"
+    end
+    
+    puts "\nType a Number to Open Link or Press Enter"
+    input = gets.strip
+      if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
+        system("open #{@page.posts[input.to_i-1].url}")
+      else 
+        system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
+      end
     run
   end
 end
-
-
-  # def run
-  #   input = ""
-  #   while input != "exit"
-  #     puts "What would you like to do? (list or exit)"
-  #     input = gets.chomp
-  #     case input
-  #    when "list"
-  #       system('clear')
-  #       puts "Top 25 Reddit Posts\n\n"
-  #      list_posts
-  #      puts ""
-  #      puts "Type a Number to Open Link"
-  #    when "exit"
-  #      puts "Have a great day!"
-  #      exit
-  #    else
-  #      system("open #{@page.posts[input.to_i-1].url}")
-  #     end
-  #   end
-  #   run
-  # end
