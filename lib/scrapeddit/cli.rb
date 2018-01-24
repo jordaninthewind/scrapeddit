@@ -3,7 +3,8 @@ class Scrapeddit::CLI
 attr_reader :subreddit
 
   def initialize
-    puts "Get Ready to Scrape Some Gold!"
+    system('clear')
+    puts "\t\t   Get Ready to Scrape Some Gold!\n\n"
     select_subreddit
   end
 
@@ -21,8 +22,10 @@ attr_reader :subreddit
   end
 
   def run
+    system('clear')
+    puts "\t\t\tScrapeddit on Reddit #{subreddit}\n\n"
     puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit, or e(x)it"
-    input = gets.chomp
+    input = gets.strip
     case input
       when "l"
         list_short
@@ -40,7 +43,7 @@ attr_reader :subreddit
 
   def list_detail
     system('clear')
-    puts "Top 25 Reddit Posts on #{subreddit} - List Details\n\n"
+    puts "\nReddit - Top Posts on #{subreddit} - List Details\n\n"
     
     @page.posts.each.with_index(1) do | post, num |
       puts "#{num}. #{post.title}"
@@ -59,7 +62,7 @@ attr_reader :subreddit
 
   def list_short
     system('clear')
-    puts "Top 25 Reddit Posts on #{subreddit} - List Articles\n\n"
+    puts "Reddit - Top Posts on #{subreddit} - List Articles\n\n"
     
     @page.posts.each.with_index(1) do | post, num |
       puts "#{num}. #{post.title}"
@@ -75,9 +78,10 @@ attr_reader :subreddit
   def select_page(input)
     if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
         system("open #{@page.posts[input.to_i-1].url}")
-      else 
-        system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
-      end
+    else 
+      system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
+    end
+  run  
   end
 
 end
