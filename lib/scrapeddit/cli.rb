@@ -14,17 +14,16 @@ class Scrapeddit::CLI
   end
 
   def run
-    # binding.pry
-    puts "What would you like to do? (list or list long, change subreddit, or exit)"
+    puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit, or e(x)it"
     input = gets.chomp
     case input
-      when "list"
+      when "l"
         list_short
-      when "list long"
+      when "d"
         list_posts
-      when "change subreddit"
+      when "c"
         select_subreddit
-      when "exit"
+      when "x"
         puts "Have a great day!"
         exit
       else
@@ -34,27 +33,22 @@ class Scrapeddit::CLI
 
   def list_posts
     system('clear')
-    puts "Top 25 Reddit Posts\n"
+    puts "\nTop 25 Reddit Posts\n"
     
     @page.posts.each.with_index do | post, num |
       puts "#{num + 1}. #{post.title}"
-      puts "	  Votes: #{post.votes} Subreddit: #{post.subreddit}"
-      puts "    URL: #{post.url}\n"
+      puts "	  Votes: #{post.votes} Subreddit: #{post.subreddit} URL: #{post.url}\n"
     end
     
     puts "Type a Number to Open Link or Press Enter"
     input = gets.strip
-      if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
-        system("open #{@page.posts[input.to_i-1].url}")
-      else 
-        system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
-      end
+    to_url(input)
     run
   end
 
   def list_short
     system('clear')
-    puts "Top 25 Reddit Posts\n"
+    puts "\nsTop 25 Reddit Posts\n"
     
     @page.posts.each.with_index do | post, num |
       puts "#{num + 1}. #{post.title}"
@@ -62,11 +56,16 @@ class Scrapeddit::CLI
     
     puts "\nType a Number to Open Link or Press Enter"
     input = gets.strip
-      if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
+    to_url(input)
+    run
+  end
+
+  def to_url(input)
+    if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
         system("open #{@page.posts[input.to_i-1].url}")
       else 
         system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
       end
-    run
   end
+
 end

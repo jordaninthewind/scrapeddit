@@ -1,6 +1,6 @@
 class Scrapeddit::Page
 
-attr_accessor :posts
+attr_accessor :posts, :subreddit
 
 	def initialize
 		@posts = []
