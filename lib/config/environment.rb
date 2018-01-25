@@ -1,9 +1,8 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
-# require 'colorize'
 
-require_relative "../scrapeddit/version" # --> How to simplify environment file?
+require_relative "../scrapeddit/version"
 require_relative "../scrapeddit/cli"
 require_relative "../scrapeddit/page"
 require_relative "../scrapeddit/scraper"

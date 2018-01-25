@@ -5,7 +5,6 @@ attr_accessor :page, :doc
 	def initialize(subreddit = "")
 		@page = Scrapeddit::Page.new
 		@doc = Nokogiri::HTML(open("http://www.reddit.com/#{subreddit}"))
-		# @page.subreddit = subreddit
 	end
 
 	def scrape
