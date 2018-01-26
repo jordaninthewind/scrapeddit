@@ -4,7 +4,7 @@ attr_reader :subreddit
 
   def initialize
     system('clear')
-    puts "\t\t   Get Ready to Scrape Some Gold!\n\n"
+    puts "\t\t   Get Ready to Find Some Gold!\n\n"
     select_subreddit
   end
 
@@ -13,26 +13,20 @@ attr_reader :subreddit
     input = gets.strip
     x = Scrapeddit::Scraper.new(input)
     @page = x.scrape
-    # binding.pry
 
-    # Removes Subreddit Posting from Listing of Voted Subreddits
-    if @page.posts.count > 25
+    while @page.posts.count > 25
       @page.posts.shift
     end
 
-    # Sets Instance Subreddit
-    if input != ""
-      @subreddit = input
-    else
-      @subreddit = "Front Page"
-    end
+    input != "" ? @subreddit = "r/#{input}" : @subreddit = "Front Page"
+
     run
   end
 
   def run
     system('clear')
     puts "\t\t\tScrapeddit on Reddit #{subreddit}\n\n"
-    puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit [beta], or e(x)it\n"
+    puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit, or e(x)it\n"
     input = gets.strip
     case input
       when "l"
@@ -42,7 +36,7 @@ attr_reader :subreddit
       when "c"
         select_subreddit
       when "x"
-        puts "Have a great day!"
+        puts "Keep Scraping for Karma!!"
         exit
       else
         run
@@ -65,9 +59,7 @@ attr_reader :subreddit
     system('clear')
     puts "\nReddit - Top Posts on #{subreddit} - List Articles\n\n"
     
-    @page.posts.each.with_index(1) do | post, num |
-      puts "#{num}. #{post.title}"
-    end
+    @page.posts.each.with_index(1) { | post, num | puts "#{num}. #{post.title}" }
     open
   end
 
