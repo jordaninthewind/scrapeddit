@@ -9,7 +9,7 @@ attr_reader :subreddit
   end
 
     def select_subreddit
-    puts "Which Subreddit Would You Like to Open? (r/... or press 'enter' for Front Page)"
+    puts "Which Subreddit Would You Like to Open? (press 'enter' for Front Page)"
     input = gets.strip
     x = Scrapeddit::Scraper.new(input)
     @page = x.scrape
@@ -32,7 +32,7 @@ attr_reader :subreddit
   def run
     system('clear')
     puts "\t\t\tScrapeddit on Reddit #{subreddit}\n\n"
-    puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit, or e(x)it\n"
+    puts "What would you like to do? (l)ist short, (d)etail, (c)hange subreddit [beta], or e(x)it\n"
     input = gets.strip
     case input
       when "l"
@@ -78,7 +78,7 @@ attr_reader :subreddit
     input.to_i.between?(1,25) ? select_page(input) : run
   end
 
-  def select_page(input)
+  def select_page(input) # This was a problem because reddit internally links using only "/r/..."
     if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
         system("open #{@page.posts[input.to_i-1].url}")
     else 
