@@ -1,19 +1,24 @@
 class Scrapeddit::Scraper
 
-attr_accessor :page, :doc, :subreddit
+attr_accessor :page, :doc, :subreddit, :count
 
 	def initialize(subreddit = "")
 		@page = Scrapeddit::Page.new
 		@subreddit = subreddit
+		@count = 0
 		load_page
 	end
 
 	def load_page
 		begin
-		@doc = Nokogiri::HTML(open("http://www.reddit.com/#{@subreddit}"))
+		  @doc = Nokogiri::HTML(open("http://www.reddit.com/#{@subreddit}"))
+		  # binding.pry
 		rescue OpenURI::HTTPError
-		load_page
-	  end 
+		  puts "Attempt Number: #{@count}"
+		  @count += 1
+		  sleep(2)
+		  load_page
+	  	end
 	end
 
 	def scrape

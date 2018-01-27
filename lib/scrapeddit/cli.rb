@@ -14,11 +14,11 @@ attr_reader :subreddit
     x = Scrapeddit::Scraper.new(input)
     @page = x.scrape
 
-    while @page.posts.count > 25
+    input != "" ? @subreddit = "#{input}" : @subreddit = "Front Page"
+
+    if @page.posts.count > 25
       @page.posts.shift
     end
-
-    input != "" ? @subreddit = "r/#{input}" : @subreddit = "Front Page"
 
     run
   end
@@ -35,6 +35,9 @@ attr_reader :subreddit
         list_detail
       when "c"
         select_subreddit
+      when "o"
+        system("open 'http://www.reddit.com/'")
+        run 
       when "x"
         puts "Keep Scraping for Karma!!"
         exit
