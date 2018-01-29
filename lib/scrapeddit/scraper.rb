@@ -5,7 +5,7 @@ attr_accessor :page, :doc, :subreddit, :count
 	def initialize(subreddit = "")
 		@page = Scrapeddit::Page.new
 		@subreddit = subreddit
-		@count = 0
+		@count = 1
 		load_page
 	end
 
@@ -20,6 +20,10 @@ attr_accessor :page, :doc, :subreddit, :count
 		  load_page
 	  	end
 	end
+
+	# def random
+
+	# end
 
 	def scrape
 		scrape_posts
