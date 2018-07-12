@@ -16,8 +16,8 @@ attr_reader :subreddit
 
     input != "" ? @subreddit = "#{input}" : @subreddit = "Front Page"
 
-    if @page.posts.count > 25
-      @page.posts.shift
+    if @page.posts[0].count > 25
+      @page.posts[0].shift
     end
 
     run
@@ -50,7 +50,7 @@ attr_reader :subreddit
     system('clear')
     puts "\nReddit - Top Posts on #{subreddit} - List Details\n\n"
     
-    @page.posts.each.with_index(1) do | post, num |
+    @page.posts[0].each.with_index(1) do | post, num |
       puts "#{num}. #{post.title.upcase}"
       puts "    Sub: #{post.subreddit}    Votes: #{post.votes}\n"
       puts "    URL: #{post.url}\n"
@@ -61,8 +61,7 @@ attr_reader :subreddit
   def list_short
     system('clear')
     puts "\nReddit - Top Posts on #{subreddit} - List Articles\n\n"
-    
-    @page.posts.each.with_index(1) { | post, num | puts "#{num}. #{post.title}" }
+    @page.posts[0].each.with_index(1) { | post, num | puts "#{num}. #{post.title}" }
     open
   end
 
@@ -74,10 +73,10 @@ attr_reader :subreddit
   end
 
   def select_page(input) # This was a problem because reddit internally links using only "/r/..."
-    if @page.posts[input.to_i-1].url.split(":")[0].include?("http")
-        system("open #{@page.posts[input.to_i-1].url}")
+    if @page.posts[0][input.to_i-1].url.split(":")[0].include?("http")
+        system("open #{@page.posts[0][input.to_i-1].url}")
     else 
-      system("open http://www.reddit.com#{@page.posts[input.to_i-1].url}")
+      system("open http://www.reddit.com#{@page.posts[0][input.to_i-1].url}")
     end
   run  
   end
