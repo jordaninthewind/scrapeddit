@@ -9,7 +9,7 @@ attr_reader :subreddit
   end
 
   def select_subreddit
-    puts "Which Subreddit Would You Like to Open? (press 'enter' for Front Page)"
+    puts "Which Subreddit Would You Like to Open? (e.g. 'r/funny', or press 'enter' for Front Page)"
     input = gets.strip
     x = Scrapeddit::Scraper.new(input)
     @page = x.scrape
